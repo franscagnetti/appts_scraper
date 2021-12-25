@@ -14,7 +14,7 @@ def get_soup(user_agent,site):
 
 def get_property_list(soup):
     """
-        Devuelve lista de departamentos -en soup_list- si son menores al precio que viene como argumento.
+        Returns a list of properties in json format.
         TODO -> filtrar o generar tipo de cambio si es USD
         TODO -> cambiar a diccionario para agregar precio
         TODO -> pensar si agregar más filtros
@@ -23,22 +23,25 @@ def get_property_list(soup):
 
     property_list = []
 
-    # TODO: first we work with 1 appt, after we define it we can move to a for iteration for all the appartments
+    # TODO: first we work with 1 props, after we define it we can move to a for iteration for all the appartments
     # TODO: add more variables to the appartment
-    property = {}
+    
+    prop_list = soup.find_all('div', class_ = 'listing__item')
+    for prop in prop_list:
+        property = {}
+        # Card details
+        card_details = prop.find('div', class_ = 'card__details-box')
 
-    appt = soup.find('div', class_ = 'listing__item')
-    card_details = appt.find('div', class_ = 'card__details-box')
-    card_details_top = card_details.find('div', class_ = 'card__details-box-top')
+        # Card details top
+        card_details_top = card_details.find('div', class_ = 'card__details-box-top')
+        card_cost = card_details_top.find('div', class_ = 'card__monetary-values').find('p', class_ = 'card__price').text.strip()
+        card_cost = re.findall('\d*\.?\d+',card_cost)[0]
 
-    card_cost = card_details_top.find('div', class_ = 'card__monetary-values').find('p', class_ = 'card__price').text.strip()
-    card_cost = re.findall('\d*\.?\d+',card_cost)[0]
+        card_currency = card_details_top.find('div', class_ = 'card__monetary-values').find('p', class_ = 'card__price').find('span', class_ = 'card__currency').text.strip()
 
-    card_currency = card_details_top.find('div', class_ = 'card__monetary-values').find('p', class_ = 'card__price').find('span', class_ = 'card__currency').text.strip()
-
-    property['card_cost'] = card_cost
-    property['card_currency'] = card_currency
-    property_list.append(property)
+        property['card_cost'] = card_cost
+        property['card_currency'] = card_currency
+        property_list.append(property)
 
     return property_list
 
