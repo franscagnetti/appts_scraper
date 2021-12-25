@@ -29,8 +29,8 @@ if __name__ == "__main__":
 
     soup = aps.get_soup(user_agent,site)
 
-    appts_list = aps.get_apartment_list(soup)
+    appts_list = aps.get_property_list(soup)
 
-    print("Returning all the appartments found")
+    print("Returning all the properties found")
     for item in appts_list:
         print(item)
