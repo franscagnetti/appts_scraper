@@ -34,31 +34,27 @@ def get_property_list(soup):
 
         # Card details top
         card_details_top = card_details.find('div', class_ = 'card__details-box-top')
-        card_cost = card_details_top.find('div', class_ = 'card__monetary-values').find('p', class_ = 'card__price').text.strip()
-        card_cost = re.findall('\d*\.?\d+',card_cost)[0]
 
-        card_currency = card_details_top.find('div', class_ = 'card__monetary-values').find('p', class_ = 'card__price').find('span', class_ = 'card__currency').text.strip()
+        try:
+            card_cost = card_details_top.find('div', class_ = 'card__monetary-values').find('p', class_ = 'card__price').text.strip()
+            card_cost = re.findall('\d*\.?\d+',card_cost)[0]
+            property['card_cost'] = card_cost
+        except:
+            pass
 
-        property['card_cost'] = card_cost
-        property['card_currency'] = card_currency
+        try:
+            card_currency = card_details_top.find('div', class_ = 'card__monetary-values').find('p', class_ = 'card__price').find('span', class_ = 'card__currency').text.strip()
+            property['card_currency'] = card_currency
+        except:
+            pass
+
+        try:
+            card_expenses = card_details_top.find('div', class_ = 'card__monetary-values').find('p', class_ = 'card__expenses').text.strip()
+            property['card_expenses'] = card_expenses
+        except:
+            pass
+        
+        # Append JSON
         property_list.append(property)
 
     return property_list
-
-    # for item in soup_list:
-    #     appartment = {}
-    #     try:
-    #         precio_class = re.findall(r'\d+',item.find('p',class_='card__price').text)
-    #         precio = ''.join(precio_class)
-    #     except:
-    #         precio = '50000000'
-    #     try:
-    #         expensas_class = re.findall(r'\d+',item.find('p',class_='card__expenses').text)
-    #         expensas = '0' if expensas_class is None else ''.join(expensas_class)
-    #     except:
-    #         expensas = '0'
-    #     if(precio):
-    #         if(int(precio) + int(expensas) < price):
-                # for a in item.find_all('a',href=True):
-                #     if('Descartados' not in a['href']):
-                #         property_list.append(f'https://www.argenprop.com{a["href"]}')
