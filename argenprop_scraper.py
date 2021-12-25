@@ -12,7 +12,7 @@ def get_soup(user_agent,site):
     soup = BeautifulSoup(site_gotten,'lxml')
     return soup
 
-def get_apartment_list(soup):
+def get_property_list(soup):
     """
         Devuelve lista de departamentos -en soup_list- si son menores al precio que viene como argumento.
         TODO -> filtrar o generar tipo de cambio si es USD
@@ -21,11 +21,11 @@ def get_apartment_list(soup):
     """
 
 
-    apartment_list = []
+    property_list = []
 
     # TODO: first we work with 1 appt, after we define it we can move to a for iteration for all the appartments
     # TODO: add more variables to the appartment
-    apartment = {}
+    property = {}
 
     appt = soup.find('div', class_ = 'listing__item')
     card_details = appt.find('div', class_ = 'card__details-box')
@@ -36,11 +36,11 @@ def get_apartment_list(soup):
 
     card_currency = card_details_top.find('div', class_ = 'card__monetary-values').find('p', class_ = 'card__price').find('span', class_ = 'card__currency').text.strip()
 
-    apartment['card_cost'] = card_cost
-    apartment['card_currency'] = card_currency
-    apartment_list.append(apartment)
+    property['card_cost'] = card_cost
+    property['card_currency'] = card_currency
+    property_list.append(property)
 
-    return apartment_list
+    return property_list
 
     # for item in soup_list:
     #     appartment = {}
@@ -58,4 +58,4 @@ def get_apartment_list(soup):
     #         if(int(precio) + int(expensas) < price):
                 # for a in item.find_all('a',href=True):
                 #     if('Descartados' not in a['href']):
-                #         apartment_list.append(f'https://www.argenprop.com{a["href"]}')
+                #         property_list.append(f'https://www.argenprop.com{a["href"]}')
