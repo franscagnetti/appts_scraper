@@ -50,9 +50,15 @@ def get_property_list(soup):
 
         try:
             card_expenses = card_details_top.find('div', class_ = 'card__monetary-values').find('p', class_ = 'card__expenses').text.strip()
-            property['card_expenses'] = card_expenses
+            card_expenses_refactored = re.findall("\d+", re.sub('[^A-Za-z0-9]+', '', card_expenses))[0]
+
+            property['card_expenses'] = card_expenses_refactored
+            property['card_expenses_currency'] = 'ARS'
         except:
             pass
+
+
+        
         
         # Append JSON
         property_list.append(property)
