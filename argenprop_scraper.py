@@ -56,7 +56,15 @@ def get_property_list(soup):
             property['card_expenses_currency'] = 'ARS'
         except:
             pass
-
+        
+        try:
+            main_features = card_details_top.find('div', class_ = 'card__monetary-values').find('ul', class_ = 'card__main-features').find_all('li')
+            for feature in main_features:
+                # find which feature is it
+                # create ifs for each feature
+                print(feature)
+        except:
+            pass
 
         
         
