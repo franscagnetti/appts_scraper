@@ -2,7 +2,6 @@ from bs4 import BeautifulSoup
 import requests
 import re
 
-
 def get_soup(user_agent,site):
     """
         Returns soup object parsed with lxml

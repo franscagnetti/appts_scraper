@@ -1,26 +1,10 @@
 # pip3 install beautifulsoup4
 # pip3 install lxml
 
-from bs4 import BeautifulSoup
-import requests
 from requests.api import head
-import re
 import argenprop_scraper as aps
-
-
-# TODO: add class_ listing__item listing__item--featured
-
-# appt = soup.find('div', class_ = 'listing__item')
-# card_details = appt.find('div', class_ = 'card__details-box')
-# card_details_top = card_details.find('div', class_ = 'card__details-box-top')
-
-# card_cost = card_details_top.find('div', class_ = 'card__monetary-values').find('p', class_ = 'card__price').text.strip()
-# card_cost = re.findall('\d*\.?\d+',card_cost)[0]
-
-# card_currency = card_details_top.find('div', class_ = 'card__monetary-values').find('p', class_ = 'card__price').find('span', class_ = 'card__currency').text.strip()
-
-# print(card_currency)
-# print(card_cost)
+import csv
+import pandas as pd
 
 if __name__ == "__main__":
     #set soup
@@ -28,9 +12,9 @@ if __name__ == "__main__":
     site = 'https://www.argenprop.com/inmuebles-pais-argentina'
 
     soup = aps.get_soup(user_agent,site)
-
     property_list = aps.get_property_list(soup)
 
-    print("Returning all the properties found")
-    for item in property_list:
-        print(item)
+    # Write data into csv
+    df = pd.DataFrame.from_records(property_list)
+    print(df.head())
+    df.to_csv('property_list.csv', index=False, encoding='utf-8')
