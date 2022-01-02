@@ -60,14 +60,41 @@ def get_property_list(soup):
         try:
             main_features = card_details_top.find('div', class_ = 'card__monetary-values').find('ul', class_ = 'card__main-features').find_all('li')
             for feature in main_features:
-                # find which feature is it
-                # create ifs for each feature
-                print(feature)
+                if "icono-superficie_cubierta" in str(feature):
+                    property['covered_area'] = feature.find('span').text.strip()
+                elif "icono-cantidad_dormitorios" in str(feature):
+                    property['number_of_rooms'] = feature.find('span').text.strip()
+                elif "icono-antiguedad" in str(feature):
+                    property['antiquity'] = feature.find('span').text.strip()
+                elif "icono-cantidad_banos" in str(feature):
+                    property['number_of_baths'] = feature.find('span').text.strip()
         except:
             pass
 
-        
-        
+        try:
+            card_address = card_details.find('h2', class_ = 'card__address').text.strip()
+            property['card_address'] = card_address
+        except:
+            pass
+
+        try:
+            card_title_primary = card_details.find('p', class_ = 'card__title--primary').text.strip()
+            property['card_title_primary'] = card_title_primary
+        except:
+            pass
+
+        try:
+            card_title = card_details.find('p', class_ = 'card__title').text.strip()
+            property['card_title'] = card_title
+        except:
+            pass
+
+        try:
+            card_info = card_details.find('p', class_ = 'card__info ').text.strip()
+            property['card_info'] = card_info
+        except:
+            pass
+
         # Append JSON
         property_list.append(property)
 
