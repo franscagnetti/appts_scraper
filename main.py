@@ -3,9 +3,7 @@
 
 from requests.api import head
 import argenprop_scraper as aps
-import csv
 import pandas as pd
-import json
 
 if __name__ == "__main__":
     #set soup
