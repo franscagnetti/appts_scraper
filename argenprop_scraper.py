@@ -2,7 +2,7 @@ import requests
 import re
 
 from bs4 import BeautifulSoup
-from Property import Property
+from classes.Property import Property
 
 def get_soup(user_agent,site):
     """

@@ -3,7 +3,7 @@
 
 from requests.api import head
 import pandas as pd
-from classes.ScraperInterface import ArgenpropScraper
+from classes.argenpropScraper import ArgenpropScraper
 
 if __name__ == "__main__":
     #set soup
