@@ -14,3 +14,27 @@ Appartment scraper Argentina
 8. Create an API with auth to return the data required.
 9. Migrate all the process to a cloud provider.
 10. Small analysis and dashboard.
+
+
+
+# Setup environment
+
+## First time:
+
+Execute the following lines
+'''
+mkdir -p ./dags ./logs ./plugins
+echo -e "AIRFLOW_UID=$(id -u)" > .env
+docker-compose up airflow-init
+'''
+
+This will initialize the main folders, create the .env file with config parameters and initiate airflow environment and username. Default: user airflow password airflow
+
+
+## Clean environment
+
+In case you want to revert the changes, you have to run:
+'''
+docker-compose down --volumes --remove-orphans
+rm -rf ./dags ./logs ./plugins
+'''
