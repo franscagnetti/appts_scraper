@@ -28,6 +28,16 @@ echo -e "AIRFLOW_UID=$(id -u)" > .env
 docker-compose up airflow-init
 '''
 
+To start the development environment execute:
+'''
+docker-compose up
+'''
+
+In other terminal you can look which containers are running executing:
+'''
+docker ps
+'''
+
 This will initialize the main folders, create the .env file with config parameters and initiate airflow environment and username. Default: user airflow password airflow
 
 
