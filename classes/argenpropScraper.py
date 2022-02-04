@@ -1,9 +1,10 @@
 from .ScraperInterface import ScraperInterface
+from bs4 import BeautifulSoup
 from .Property import Property
 import re
 
 class ArgenpropScraper(ScraperInterface):
-    def get_property_list(self, soup,user_agent):
+    def get_property_list(self) -> List[Property]:
         """
             Returns a list of properties in json format.
         """
@@ -11,7 +12,10 @@ class ArgenpropScraper(ScraperInterface):
         # Looping up to max pages
         max_pages = 1
         counter = 0
-
+        
+        # Initial soup
+        soup = super().get_soup(self.base_site)
+        
         property = {}
         properties_found_list = []
 
@@ -94,14 +98,14 @@ class ArgenpropScraper(ScraperInterface):
 
             # Find next page
             next_page = soup.find_all('li', class_ = 'pagination__page-next')
-
+            ## TODO refactor to use base_site instead of hardcoded url
             try:
                 print('next_Page')
                 url_slug = next_page[0].find('a',rel='next',href=True)
                 if url_slug:
                     url = f'https://www.argenprop.com{url_slug["href"]}'
                     print(f'Next page is: {url}')
-                    soup = super().get_soup(user_agent,url)
+                    soup = super().get_soup(url)
                 else:
                     print("No next page")
                     break
