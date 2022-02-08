@@ -9,8 +9,10 @@ if __name__ == "__main__":
     #set soup
     user_agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36'
     site = 'https://www.argenprop.com/inmuebles-pais-argentina'
+    
+    site_zonaprop = 'https://www.zonaprop.com.ar/inmuebles.html'
 
-    argScraper = ArgenpropScraper()
+    argScraper = ArgenpropScraper(user_agent,site)
     
     soup = argScraper.get_soup(user_agent,site)
     property_list = argScraper.get_property_list(soup, user_agent)
