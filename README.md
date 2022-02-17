@@ -45,6 +45,11 @@ docker-compose down --volumes --remove-orphans
 rm -rf ./dags ./logs ./plugins
 ```
 
+# Create user:
+docker exec -it containername /bin/bash
+airflow users create --username name --firstname name --lastname name --role role --email email
+Then type the password
+
 # DAGs
 ## Create a DAG
 To create a DAG insert it into 'dags' folder
@@ -53,3 +58,4 @@ To create a DAG insert it into 'dags' folder
 There are two options to test a DAG:
 1. Go to the UI (localhost:8080) and execute it there
 2. Search for the docker-container ID and write docker exec <container_id> bash. Then execute DAGs from command line.
+
